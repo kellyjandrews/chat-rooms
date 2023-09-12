@@ -12,11 +12,10 @@ export default function useRedirect(localStorage) {
   useEffect(() => {
     if (!firstLoadDone) setFirstLoadDone(true)
     if (pathname === '/chat-room' && localStorage === null) {
-      router.replace('/')
+      redirect('/')
     }
-
     if (pathname === '/' && localStorage !== null) {
-      router.replace('/chat-room')
+      redirect('/chat-room')
     }
 
     router.refresh()
