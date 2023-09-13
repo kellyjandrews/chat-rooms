@@ -6,6 +6,8 @@ import useLocalStorage from './_hooks/useLocalStorage'
 import useRedirect from './_hooks/useRedirect'
 import getJwt from './_lib/getJwt'
 import PageWrapper from './_components/wrapper'
+import Input from './_components/input'
+import Button from './_components/button'
 
 export default function Home() {
   const [chatRoom, saveChatRoom] = useLocalStorage('chatRoom', null)
@@ -31,31 +33,33 @@ export default function Home() {
   return (
     <PageWrapper>
       <h1>Video Chat Rooms</h1>
-      <form onSubmit={handle_form}>
-        <input
+      <form className="flex flex-col" onSubmit={handle_form}>
+        <Input
           type="text"
           name="user"
           value={user}
           onChange={(e) => setUser(e.target.value)}
         />
-        <input
+        <Input
           type="text"
           name="name"
           value={name}
           onChange={(e) => setName(e.target.value)}
         />
-        <input
+        <Input
           type="password"
           name="passcode"
           value={passcode}
           onChange={(e) => setPasscode(e.target.value)}
         />
-        <button type="submit" id="create">
-          Create
-        </button>
-        <button type="submit" id="join">
-          Join
-        </button>
+        <div className="flex-col">
+          <Button type="submit" id="create">
+            Create
+          </Button>
+          <Button type="submit" id="join">
+            Join
+          </Button>
+        </div>
       </form>
     </PageWrapper>
   )
