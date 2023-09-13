@@ -1,25 +1,30 @@
 'use client'
 
-import { redirect, usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import { useEffect, useState } from 'react'
 
-export default function useRedirect(localStorage) {
+export default function useRedirect(localStorage, router) {
   const [firstLoadDone, setFirstLoadDone] = useState(false)
   const pathname = usePathname()
-  const router = useRouter()
-  console.log(localStorage)
-  console.log(pathname)
+
   useEffect(() => {
-    if (!firstLoadDone) setFirstLoadDone(true)
+    setFirstLoadDone(true)
+  }, [])
+
+  useEffect(() => {
+    let path
+    if (!firstLoadDone) {
+      return
+    }
+
     if (pathname === '/chat-room' && localStorage === null) {
-      redirect('/')
-    }
-    if (pathname === '/' && localStorage !== null) {
-      redirect('/chat-room')
+      path = '/'
+      router.replace(path)
     }
 
-    router.refresh()
+    if (pathname === `/` && localStorage?.signature) {
+      path = '/chat-room'
+      router.push(path)
+    }
   }, [firstLoadDone, localStorage, pathname, router])
-
-  return
 }

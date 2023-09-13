@@ -4,7 +4,7 @@ import secureLocalStorage from 'react-secure-storage'
 export default function useLocalStorage(key, initialValue) {
   const [storedValue, setStoredValue] = useState(initialValue)
   const [firstLoadDone, setFirstLoadDone] = useState(false)
-
+  // add storage clear based on time
   useEffect(() => {
     const fromLocal = () => {
       if (typeof window === 'undefined') {
@@ -36,6 +36,5 @@ export default function useLocalStorage(key, initialValue) {
       console.log(error)
     }
   }, [storedValue, firstLoadDone, key])
-  console.log(storedValue)
   return [storedValue, setStoredValue]
 }

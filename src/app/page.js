@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import { useRouter } from 'next/navigation'
 import useLocalStorage from './_hooks/useLocalStorage'
 import useRedirect from './_hooks/useRedirect'
 import getJwt from './_lib/getJwt'
@@ -8,7 +9,8 @@ import PageWrapper from './_components/wrapper'
 
 export default function Home() {
   const [chatRoom, saveChatRoom] = useLocalStorage('chatRoom', null)
-  useRedirect(chatRoom)
+  const router = useRouter()
+  useRedirect(chatRoom, router)
   const [user, setUser] = useState('')
   const [name, setName] = useState('')
   const [passcode, setPasscode] = useState('')
